@@ -19,7 +19,7 @@ const sendConfirmationEmail = (name, email, confirmationCode) => {
     from: user,
     to: email,
     subject: "Please confirm your Reminders account",
-    html: `<p>Email Confirmation</p>
+    html: `
         <p>Hello ${name}</p>
         <p>Thank you for choosing Reminders. Please confirm your email by clicking on the following link</p>
         <h1><a href=http://localhost:3000/users/confirm/${confirmationCode}> Click here</a><h1>

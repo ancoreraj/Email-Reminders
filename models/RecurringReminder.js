@@ -5,26 +5,27 @@ const RecurringReminderSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  email: {
+  description: {
     type: String,
     required: true
   },
-  password: {
+  monthly: {
     type: String,
-    required: true
   },
-  status: {
-    type: String, 
-    enum: ['Pending', 'Active'],
-    default: 'Pending'
+  monthDate: {
+    type: Number, 
   },
-  confirmationCode: {
+  weekly: {
     type: String,
-    required: true
   },
-  date: {
-    type: Date,
-    default: Date.now
+  weekDay: {
+    type: Number,
+  },
+  daily: {
+    type: String,
+  },
+  dailyTime: {
+    type: String
   }
 });
 

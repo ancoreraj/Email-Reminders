@@ -22,14 +22,14 @@
           </div>
           <div class="form-group">
             <label for="description">Description</label>
-            <textarea
+            <input
               type="text"
               id="description"
               name="description"
               class="form-control"
               placeholder="Enter Description"
               required
-            ></textarea>
+            >
           </div>
           <div class="form-group">
             <label for="scheduleTime">Schedule Time</label>
@@ -48,6 +48,52 @@
           </button>
         </form>
         <p class="lead mt-4">Back-><a href="/dashboard">Home</a></p>
+        <hr>
+
+        <div>
+          <h4 class="text-center mt-2"><u>All your scheduled reminders</u></h4>
+          <table class="table table-hover">
+            
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Reminder-Time</th>
+                <th scope="col">Controllers</th>
+              </tr>
+            </thead>
+
+            <%if(reminders){%>
+              <%reminders.forEach((reminder)=>{%>
+                <tbody>
+                  <tr class="table-active">
+                    <td><h5><%=reminder.name%></h5></td>
+                    <td><h5><%=reminder.scheduleTime%></h5></td>
+                    <td>
+                      <div class="d-flex">
+
+                        
+                          <a href="/reminder/edit/<%=reminder._id%>" class="btn p-0 border-0 m-2"><i class="far fa-edit fa-2x"></i></a>
+                        
+
+                        <form action="/reminder/delete/<%=reminder._id%>" method="POST">
+                          <button type="submit" class="btn p-0 border-0 m-2"><i class="fas fa-trash fa-2x"></i></button>
+                        </form>
+
+                      </div>
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              <%})%>
+
+            <%}else{%>
+              <h4>No Schedule Reminder created by you.</h4>
+            <%}%>
+
+            
+            
+          </table>
+        </div>
       </div>
     </div>
   </div>

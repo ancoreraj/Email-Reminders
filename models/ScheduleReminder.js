@@ -6,7 +6,7 @@ const ScheduleReminderSchema = new mongoose.Schema({
     required: true
   },
   description: {
-    type: date,
+    type: String,
     required: true
   },
   scheduleTime: {

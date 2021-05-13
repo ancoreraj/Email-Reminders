@@ -1,0 +1,60 @@
+<div class="row mt-5">
+    <div class="col-md-6 m-auto">
+      <div class="card card-body">
+        <h1 class="text-center mb-2" style="font-size: 50px;">Reminders</h1>
+        
+        <h3 class="text-center mb-3">
+          <i class="fas fa-user-plus"></i> Edit Schedule Reminder
+        </h3>
+        <% include ./partials/messages %>
+        <form action="/reminder/edit/<%=reminder._id%>" method="POST">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              class="form-control"
+              placeholder="Enter Name"
+              autocomplete="off"
+              value="<%=reminder.name%>"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <input
+              type="text"
+              id="description"
+              name="description"
+              class="form-control"
+              placeholder="Enter Description"
+              value="<%=reminder.description%>"
+              required
+            >
+          </div>
+          <div class="form-group">
+            <label for="scheduleTime">Schedule Time</label>
+            <input
+              type="datetime-local"
+              id="scheduleTime"
+              name="scheduleTime"
+              class="form-control"
+              placeholder="Create scheduleTime"
+              value="<%=reminder.scheduleTime%>"
+              required
+            />
+          </div>
+
+          <button type="submit" class="btn btn-secondary btn-block">
+            Update
+          </button>
+          <a href="/reminder/schedule" class="btn btn-primary btn-block">Cancel</a>
+        </form>
+        <p class="lead mt-4">Back-><a href="/dashboard">Home</a></p>
+
+        
+      </div>
+    </div>
+  </div>
+  
