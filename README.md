@@ -35,6 +35,13 @@ $ node app.js
 
  3. Open http://localhost:3000 in your favourite browser.
 
+
+### Q. How I am doing the scheduling?
+- I used a new node package [AgendaJs](https://github.com/agenda/agenda). Why not traditional function such as setTimeout(), because in setTimeout(), we lose our job when the process restarts. AgendaJs uses a MongoDB database to schedule tasks so that even if the server goes down, the task will still run at the specified time or intervals.
+
+### Q. Why I chose the Mongodb Database?
+- The first reason is, we use JavaScript in writing mongodb codes which is same for nodejs and fronted development. I didn't had to learn a new programming language.
+- It is a noSql database. 
 ## Contributing
 
 Feel free to dive in! [Open an issue](https://github.com/ancoreraj/Email-Reminders/issues) or submit PRs.
