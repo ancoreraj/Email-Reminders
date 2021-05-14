@@ -76,6 +76,7 @@ router.post('/delete/:id', async (req, res) => {
 //Edit Schedule Reminder Route
 router.get('/edit/:id', async (req, res) => {
   const reminder = await ScheduleReminder.findById(req.params.id)
+  console.log(reminder)
   res.render('editSchedule', { reminder })
 
 })
