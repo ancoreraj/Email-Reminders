@@ -22,7 +22,7 @@ const sendConfirmationEmail = (name, email, confirmationCode) => {
     html: `
         <p>Hello ${name}</p>
         <p>Thank you for choosing Reminders. Please confirm your email by clicking on the following link</p>
-        <h1><a href="https://ancore-reminders.herokuapp.com/confirm/${confirmationCode}"> Click here</a><h1>
+        <h1><a href="https://ancore-reminders.herokuapp.com/users/confirm/${confirmationCode}"> Click here</a><h1>
         </div>`,
   }).catch(err => console.log(err));
 };
