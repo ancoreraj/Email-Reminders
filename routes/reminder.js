@@ -14,9 +14,9 @@ router.get('/schedule', ensureAuthenticated, async (req, res) => {
 });
 
 //Under Construction
-router.get('/recurring', ensureAuthenticated, (req, res) =>
-  res.render('recurring')
-);
+// router.get('/recurring', ensureAuthenticated, (req, res) =>
+//   res.render('recurring')
+// );
 
 // Post Schedule Reminder
 router.post('/schedule', async (req, res) => {
@@ -51,14 +51,14 @@ router.post('/schedule', async (req, res) => {
 })
 
 //Under Construction
-router.post('/recurring', (req, res) => {
-  const { name, description, monthly, monthDate, weekly, weekDay, daily, dailyTime } = req.body;
+// router.post('/recurring', (req, res) => {
+//   const { name, description, monthly, monthDate, weekly, weekDay, daily, dailyTime } = req.body;
 
-  console.log(req.body)
-  res.redirect('/reminder/recurring')
-})
+//   console.log(req.body)
+//   res.redirect('/reminder/recurring')
+// })
 
-//Delete Reminder
+//Delete Schedule Reminder
 router.post('/delete/:id', async (req, res) => {
   const id = req.params.id
   const reminderRemoved = await agenda.cancel({ name: id });
@@ -73,14 +73,14 @@ router.post('/delete/:id', async (req, res) => {
   })
 })
 
-//Edit Route
+//Edit Schedule Reminder Route
 router.get('/edit/:id', async (req, res) => {
   const reminder = await ScheduleReminder.findById(req.params.id)
   res.render('editSchedule', { reminder })
 
 })
 
-//Edit Post Route
+//Edit Post Schedule Reminder Route
 router.post('/edit/:id', async (req, res) => {
   const id = req.params.id
 
