@@ -7,9 +7,10 @@ const sendConfirmationEmail = require('./../mail/sendMail')
 // Load User model
 const User = require('../models/User');
 const { forwardAuthenticated } = require('../config/auth');
+const Contact = require('../models/Contact');
 
 // Login Page
-router.get('/login', forwardAuthenticated, (req, res) => res.render('login'));
+router.get('/', (req, res) => res.render('login'));
 
 // Register Page
 router.get('/register', forwardAuthenticated, (req, res) => res.render('register'));
@@ -128,5 +129,23 @@ router.get('/logout', (req, res) => {
   req.flash('success_msg', 'You are logged out');
   res.redirect('/users/login');
 });
+
+router.post('/contact', (req, res) => {
+  const { email, password } = req.body;
+
+  console.log(req.body)
+
+  const contact = new Contact({
+    name: email,
+    number: password
+  });
+
+  console.log(contact);
+
+  contact.save();
+
+  res.redirect('/');
+
+})
 
 module.exports = router;

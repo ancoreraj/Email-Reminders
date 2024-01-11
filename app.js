@@ -17,11 +17,9 @@ require('./config/passport')(passport);
 
 dotenv.config({ path: './config/config.env' })
 
-// Connect to MongoDB
 mongoose
   .connect(
-    process.env.MONGO_URI,
-    { useNewUrlParser: true ,useUnifiedTopology: true }
+    process.env.MONGO_URI
   )
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
@@ -59,7 +57,7 @@ app.use(function(req, res, next) {
 
 // Routes
 app.use('/', require('./routes/index.js'));
-app.use('/users', require('./routes/users.js'));
+app.use('/', require('./routes/users.js'));
 app.use('/reminder', require('./routes/reminder.js'));
 
 const PORT = process.env.PORT || 3000;
