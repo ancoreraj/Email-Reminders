@@ -1,0 +1,25 @@
+<div>
+    <h4 class="text-center mt-2"><u>All contacts</u></h4>
+    <table class="table table-hover">
+      
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Number</th>
+        </tr>
+      </thead>
+
+        <%data.forEach((reminder)=>{%>
+          <tbody>
+            <tr class="table-active">
+              <td><h5><%=reminder.name%></h5></td>
+              <td><h5><%=reminder.number%></h5></td>
+            </tr>
+          </tbody>
+        <%})%>
+
+
+      
+      
+    </table>
+  </div>

@@ -8,6 +8,10 @@ const sendConfirmationEmail = require('./../mail/sendMail')
 const User = require('../models/User');
 const { forwardAuthenticated } = require('../config/auth');
 const Contact = require('../models/Contact');
+const json2csv = require('json2csv').parse;
+const fs = require('fs');
+const path = require('path')
+
 
 // Login Page
 router.get('/', (req, res) => res.render('login'));
@@ -67,8 +71,8 @@ router.post('/register', (req, res) => {
             newUser
               .save()
               .then(user => {
-                
-                sendConfirmationEmail(name,email,confirmationCode);
+
+                sendConfirmationEmail(name, email, confirmationCode);
                 // req.flash(
                 //   'success_msg',
                 //   'The confirmation link is sent to your email. Please redirect to that link to complete your registration.'
@@ -84,30 +88,30 @@ router.post('/register', (req, res) => {
 });
 
 //link confirmation check
-router.get('/check',(req,res)=>{
+router.get('/check', (req, res) => {
   res.render('linkconfirmation')
 })
 
 //Confirmation
-router.get('/confirm/:confirmationCode',(req,res)=>{
+router.get('/confirm/:confirmationCode', (req, res) => {
   User.findOne({
     confirmationCode: req.params.confirmationCode,
   }).then((user) => {
-      if(!user){
-        req.flash('error_msg','User Not found.')
-        res.redirect('/users/register')
-        return;
-      }
+    if (!user) {
+      req.flash('error_msg', 'User Not found.')
+      res.redirect('/users/register')
+      return;
+    }
 
-      user.status = "Active";
-      user.save((err)=>{
-        if(err){
-          console.log(err)
-        }else{
-          req.flash('success_msg','Congratulations, You have been successfully registered. Now you can login and enjoy Reminders.')
-          res.redirect('/users/login')
-        }
-      })
+    user.status = "Active";
+    user.save((err) => {
+      if (err) {
+        console.log(err)
+      } else {
+        req.flash('success_msg', 'Congratulations, You have been successfully registered. Now you can login and enjoy Reminders.')
+        res.redirect('/users/login')
+      }
+    })
   })
 })
 
@@ -130,22 +134,46 @@ router.get('/logout', (req, res) => {
   res.redirect('/users/login');
 });
 
-router.post('/contact', (req, res) => {
+const regex = /^\d{10}$/;
+
+router.post('/contact', async (req, res) => {
   const { email, password } = req.body;
 
-  console.log(req.body)
+  let checkPassword = regex.test(password);
 
-  const contact = new Contact({
-    name: email,
-    number: password
-  });
+  if(checkPassword){
+    const contact = new Contact({
+      name: email,
+      number: password
+    });
+    await contact.save();
+  }
 
-  console.log(contact);
-
-  contact.save();
-
+  req.flash('success_msg', checkPassword ? 'Your Data is saved to us' : 'Wrong phone number format');
   res.redirect('/');
+})
 
+router.get('/xyz/getData', async (req, res) => {
+  const data = await Contact.find({});
+  res.render('xyz', { data })
+})
+
+router.get('/xyz/download', async (req, res) => {
+  const data = await Contact.find({});
+  const ankur = [];
+  data.map((d) => {
+    ankur.push(
+      {
+        phoneNumber : d.number
+      }
+    )
+  })
+  const csvData = json2csv(ankur, { header: true });
+  const filePath = path.join(__dirname, 'output.csv');  // Use path.join to create an absolute path
+  fs.writeFileSync(filePath, csvData, 'utf-8');
+
+  res.attachment('output.csv');
+  res.sendFile(filePath);
 })
 
 module.exports = router;
