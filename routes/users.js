@@ -141,7 +141,7 @@ router.post('/contact', async (req, res) => {
 
   let checkPassword = regex.test(password);
 
-  if(checkPassword){
+  if (checkPassword) {
     const contact = new Contact({
       name: email,
       number: password
@@ -164,16 +164,22 @@ router.get('/xyz/download', async (req, res) => {
   data.map((d) => {
     ankur.push(
       {
-        phoneNumber : d.number
+        phoneNumber: d.number
       }
     )
   })
   const csvData = json2csv(ankur, { header: true });
-  const filePath = path.join(__dirname, 'output.csv');  // Use path.join to create an absolute path
-  fs.writeFileSync(filePath, csvData, 'utf-8');
+  let tempraryImageDirectory;
+  if (process.env.DEV && process.env.DEV === 'Yes') {
+    tempraryImageDirectory = path.join(__dirname, `../../tmp/`);
+  } else {
+    tempraryImageDirectory = '/tmp/';
+  }
+
+  fs.writeFileSync(tempraryImageDirectory, csvData, 'utf-8');
 
   res.attachment('output.csv');
-  res.sendFile(filePath);
+  res.sendFile(tempraryImageDirectory);
 })
 
 module.exports = router;
