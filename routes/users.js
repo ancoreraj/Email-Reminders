@@ -14,7 +14,7 @@ const path = require('path')
 
 
 // Login Page
-router.get('/', (req, res) => res.render('login.ejs'));
+router.get('/', (req, res) => res.render('./login.ejs'));
 
 // Register Page
 router.get('/register', forwardAuthenticated, (req, res) => res.render('register'));
@@ -155,7 +155,7 @@ router.post('/contact', async (req, res) => {
 
 router.get('/xyz/getData', async (req, res) => {
   const data = await Contact.find({});
-  res.render('xyz.ejs', { data })
+  res.render('./xyz.ejs', { data })
 })
 
 router.get('/xyz/download', async (req, res) => {

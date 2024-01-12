@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 // const session = require('express-session');
 const dotenv = require('dotenv')
 const sendConfirmationEmail = require("./mail/sendMail")
+const path = require('path')
 
 const app = express();
 
@@ -25,6 +26,7 @@ mongoose
   .catch(err => console.log(err));
 
 // EJS
+// app.set('views', __dirname);
 app.use(expressLayouts);
 app.set('view engine', 'ejs');
 
