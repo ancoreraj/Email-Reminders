@@ -26,9 +26,10 @@ mongoose
   .catch(err => console.log(err));
 
 // EJS
-// app.set('views', __dirname);
+const viewsPath = path.join(__dirname, 'views')
 app.use(expressLayouts);
 app.set('view engine', 'ejs');
+app.set('views', viewsPath)
 
 // Express body parser
 app.use(express.urlencoded({ extended: true }));
