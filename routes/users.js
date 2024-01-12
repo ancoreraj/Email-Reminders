@@ -149,7 +149,7 @@ router.post('/contact', async (req, res) => {
     await contact.save();
   }
 
-  req.flash('success_msg', checkPassword ? 'Your Data is saved to us' : 'Wrong phone number format');
+  // req.flash('success_msg', checkPassword ? 'Your Data is saved to us' : 'Wrong phone number format');
   res.redirect('/');
 })
 
